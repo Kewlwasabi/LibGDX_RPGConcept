@@ -19,12 +19,12 @@ public class FPSCounter extends Actor {
     }
 
     public void initComp() {
-        label = new Label(Float.toString(this.FPS), new Skin(Gdx.files.internal("skins/default/skin/uiskin.json")));
+        label = new Label(Float.toString(this.FPS), new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"))); //FPS custom text
         label.setPosition(20, V_HEIGHT - 30);
     }
 
     public void act(float delta) {
-        this.FPS = Constants.FPS;
+        this.FPS = Constants.FPS; //updates FPS in Constants to this
         label.setText(Float.toString(this.FPS));
         label.act(delta);
     }

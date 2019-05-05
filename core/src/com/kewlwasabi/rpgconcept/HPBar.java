@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class HPBar extends Actor {
 
-    Color color;
+    Color color; //color since the bar can be used for other stuff other than hp
 
     float width;
     float maxWidth;
@@ -47,7 +47,7 @@ public class HPBar extends Actor {
     }
 
     public void initComp() {
-        Pixmap pixmap = createRect(1,1,color.r, color.g, color.b, color.a);
+        Pixmap pixmap = createRect(1,1,color.r, color.g, color.b, color.a); //create rect from PixMap
         bar = new Texture(pixmap);
 
 
@@ -55,7 +55,7 @@ public class HPBar extends Actor {
     }
 
     public void initLabel() {
-        disPoints = new Label(Integer.toString(disNum), new Skin(Gdx.files.internal("skins/default/skin/uiskin.json")));
+        disPoints = new Label(Integer.toString(disNum), new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"))); //hp number with custom text
         disPoints.setPosition(posX + 10, posY);
     }
 
@@ -68,34 +68,34 @@ public class HPBar extends Actor {
 
     @Override
     public void act(float delta) {
-        float percentBar = currentPoints/maxPoints;
+        float percentBar = currentPoints/maxPoints; //current percentage of bar
 
-        if(damageCounter > 0) {
-            damageCounter = damageCounter - 20f*delta;
-            width = percentBar*maxWidth + (damageCounter/maxPoints)*maxWidth;
-            disNum = Math.round((width/maxWidth)*maxPoints);
+        if(damageCounter > 0) { //damage counter stores damage the character needs to take
+            damageCounter = damageCounter - 20f*delta; //goes down by 20f every second
+            width = percentBar*maxWidth + (damageCounter/maxPoints)*maxWidth; //scales width of hp bar by percent HP
+            disNum = Math.round((width/maxWidth)*maxPoints); //gets current rounded HP
         }
-        if(healingCounter > 0) {
+        if(healingCounter > 0) { //for healing
             healingCounter = healingCounter - 20f*delta;
             healingTemp =- healingCounter;
-            width = percentBar*maxWidth + (healingTemp/maxPoints)*maxWidth;
+            width = percentBar*maxWidth + (healingTemp/maxPoints)*maxWidth; //width increases with healing
             disNum = Math.round(((width/maxWidth)*maxPoints));
         }
 
         disPoints.setText(Integer.toString(disNum));
     }
 
-    public Pixmap createRect(int width, int height, float r, float g, float b, float alpha) {
-        Pixmap pixmap =  new Pixmap(width,height, Pixmap.Format.RGBA8888);
+    public Pixmap createRect(int width, int height, float r, float g, float b, float alpha) { //create rectangle method
+        Pixmap pixmap =  new Pixmap(width,height, Pixmap.Format.RGBA8888); //uses RGBA8888 PixMap
         pixmap.setColor(r,g,b,alpha);
         pixmap.fill();
         pixmap.drawRectangle(0,0,width, height);
 
-        return pixmap;
+        return pixmap; //returns correct size pixmap
 
     }
 
-    public void addPoints(float a) {
+    public void addPoints(float a) { //adds HP points
         if(currentPoints + a <= maxPoints) {
             healingCounter += a;
             healingTemp += a;
@@ -103,7 +103,7 @@ public class HPBar extends Actor {
         }
     }
 
-    public void subPoints(float a) {
+    public void subPoints(float a) { //subtracts HP points
         if(currentPoints - a >= 0) {
             damageCounter += a;
             currentPoints -= a;

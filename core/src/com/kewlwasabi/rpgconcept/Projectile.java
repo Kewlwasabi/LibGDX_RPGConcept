@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import static com.kewlwasabi.rpgconcept.Constants.*;
 
-public class Projectile extends Actor {
+public class Projectile extends Actor { //projectiles
 
     float width;
     float height;
@@ -46,8 +46,8 @@ public class Projectile extends Actor {
         posY = avaPos.y;
 
         initComp();
-        calculateAngle();
-        initSensor();
+        calculateAngle(); //calculate angle so sprite can be rotated
+        initSensor(); //sensor for projectile collision
     }
 
     public void initComp() {
@@ -65,7 +65,7 @@ public class Projectile extends Actor {
 
     @Override
     public void act(float delta) {
-        posX += (projectileSpeed*MathUtils.cos(angle))*delta;
+        posX += (projectileSpeed*MathUtils.cos(angle))*delta; //projectile moves at projectileSpeed velocity
         posY += (projectileSpeed*MathUtils.sin(angle)*delta);
 
 
@@ -93,7 +93,7 @@ public class Projectile extends Actor {
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
 
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.type = BodyDef.BodyType.DynamicBody; //projectiles are dynamic body
         bdef.position.set(posX + width/2, posY + height/2);
 
         body = world.createBody(bdef);
@@ -104,7 +104,7 @@ public class Projectile extends Actor {
         fdef.shape = shape;
 
         body.createFixture(fdef).setUserData(this);
-        body.setLinearVelocity(projectileSpeed*MathUtils.cos(angle), projectileSpeed*MathUtils.sin(angle));
+        body.setLinearVelocity(projectileSpeed*MathUtils.cos(angle), projectileSpeed*MathUtils.sin(angle)); //sets linear velocity of projectile at an angle
     }
 
 }

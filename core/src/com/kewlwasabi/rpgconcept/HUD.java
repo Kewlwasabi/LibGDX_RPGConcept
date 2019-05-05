@@ -17,10 +17,10 @@ import static com.kewlwasabi.rpgconcept.Constants.*;
 
 public class HUD {
 
-    private Stage stage;
-    private Stage overLayStage;
+    private Stage stage; //main stage to put stuff on
+    private Stage overLayStage; //overlay stage on top
 
-    Table tableInv;
+    Table tableInv; //tables to put Actors in for organization and format
     Table tableStats;
 
     ShapeRenderer renderer;
@@ -43,7 +43,7 @@ public class HUD {
     ToolTip pickupTip;
 
     HPBar hpBar;
-    HPBar mpBar;
+    HPBar mpBar; //MP bar is basically hp bar but in blue
 
     PickupDisplay display;
     FPSCounter fpsCounter;
@@ -79,14 +79,14 @@ public class HUD {
         overLayStage = new Stage();
         tableInv = new Table();
         tableStats = new Table();
-        skin = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json")); //custom skin to be used for textures
         renderer = new ShapeRenderer();
 
         display = new PickupDisplay(avatar);
         display.setVisible(false);
 
         fpsCounter = new FPSCounter();
-        overLayStage.addActor(fpsCounter);
+        overLayStage.addActor(fpsCounter); //FPS counter on the overLay stage
 
         stage.addActor(display);
 
@@ -102,7 +102,7 @@ public class HUD {
 
     }
 
-    public void initBack() {
+    public void initBack() { //intializing the greyish Background of the HUD
         Pixmap pixmap = createRect((int)((V_WIDTH/4)),(int)((V_HEIGHT) - V_HEIGHT/48), 0,0,0,0.5f);
         background = new Texture(pixmap);
         pixmap = createRect((int)((V_WIDTH/4) - (V_WIDTH/80)),(int)((V_HEIGHT/5)), 0.1f,0.1f,0.1f,0.5f);
@@ -113,17 +113,17 @@ public class HUD {
 
     public void initInv() {
 
-        tableInv.setPosition((V_WIDTH-V_WIDTH/4),V_HEIGHT/4);
+        tableInv.setPosition((V_WIDTH-V_WIDTH/4),V_HEIGHT/4); //setting inventory table size and pos
         tableInv.setSize((int)((V_WIDTH/4) - (V_WIDTH/80)),(int)(V_HEIGHT/5));
 
-        for(int i = 1; i < 5; i++) {
+        for(int i = 1; i < 5; i++) { //adding 1 through 4 for top row of table
             label = new Label(Integer.toString(i), skin);
             tableInv.add(label).fillY().pad((V_WIDTH / 80), V_WIDTH / 47, (V_WIDTH / 67), V_WIDTH / 47);
 
 
         }
         tableInv.row();
-        for(int i = 5; i < 9; i++) {
+        for(int i = 5; i < 9; i++) { //5 through 8 on bottom row of table
             label = new Label(Integer.toString(i), skin);
             tableInv.add(label).fillY().pad((V_WIDTH/67),V_WIDTH/47,(V_WIDTH/80),V_WIDTH/47);
         }
@@ -131,11 +131,11 @@ public class HUD {
 
     }
 
-    public void initResource() {
+    public void initResource() { //adding mpBar and hpBar
         mpBar = new HPBar(new Color(0, 0, 1, 1), avatar.mp, (int)((V_WIDTH/4) - V_WIDTH/18), V_HEIGHT/16,
                 (V_WIDTH-V_WIDTH/4) + V_WIDTH/18,V_HEIGHT/2 + V_HEIGHT/6);
         stage.addActor(mpBar);
-        mpPic = new Texture("mp.png");
+        mpPic = new Texture("mp.png"); //small picture to go next to the bar
         hpBar = new HPBar(new Color(1,0, 0, 1), avatar.hp, (int)((V_WIDTH/4) - V_WIDTH/18), V_HEIGHT/16,
                 (V_WIDTH-V_WIDTH/4) + V_WIDTH/18,V_HEIGHT/2 + V_HEIGHT/16 + V_WIDTH/80 + V_HEIGHT/6);
         stage.addActor(hpBar);
@@ -144,12 +144,12 @@ public class HUD {
 
     public void initStats() {
 
-        tableStats.setPosition((V_WIDTH-V_WIDTH/4) + V_WIDTH/160, V_HEIGHT/2 - V_WIDTH/40);
+        tableStats.setPosition((V_WIDTH-V_WIDTH/4) + V_WIDTH/160, V_HEIGHT/2 - V_WIDTH/40); //initializing table for character stats
         tableStats.setSize((int)((V_WIDTH/4) - V_WIDTH/80), (int)(V_HEIGHT/5));
         tableStats.clear();
 
         String text;
-        for(int i = 1; i < 4; i++) {
+        for(int i = 1; i < 4; i++) { //adding text label to table for first row
             switch (i) {
                 case 1:
                     text = "Atk: " + avatar.stats[i+1];
@@ -171,8 +171,8 @@ public class HUD {
             }
 
         }
-        tableStats.row();
-        for(int i = 4; i < 7; i++) {
+        tableStats.row(); //next row
+        for(int i = 4; i < 7; i++) { //adding text label to table for second row
             switch(i) {
                 case 4:
                     text = "Dex: " + avatar.stats[i+1];
@@ -197,7 +197,7 @@ public class HUD {
 
     }
 
-    public void initClassInfo() {
+    public void initClassInfo() { //initializing the class name label
         classImg = new TextureRegion(avatar.walkRight[0]);
         label = new Label(avatar.className, skin);
         label.setPosition((V_WIDTH-V_WIDTH/4) + V_WIDTH/8, V_HEIGHT - V_HEIGHT/8);
@@ -205,7 +205,7 @@ public class HUD {
 
     }
 
-    public void render() {
+    public void render() { //rendering the HUD
         batch.begin();
 
         batch.draw(background,(V_WIDTH-V_WIDTH/4), V_HEIGHT/4 - V_HEIGHT/48);
@@ -229,7 +229,7 @@ public class HUD {
 
         batch.end();
 
-        stage.act();
+        stage.act(); //update and draw stage
         stage.draw();
 
         batch.begin();
@@ -252,15 +252,15 @@ public class HUD {
         }
         batch.end();
 
-        overLayStage.act();
+        overLayStage.act(); //update and draw overlay stage after main stage
         overLayStage.draw();
     }
 
     public void turnDisplayVisible(boolean a) {
         display.setVisible(a);
-    }
+    } //for when character touches an item, display turns visible
 
-    public void initToolTip() {
+    public void initToolTip() { //initializing tooltip
         hpTip = new ToolTip("Health Points", (V_WIDTH-V_WIDTH/4) + V_WIDTH/80,
                 V_WIDTH, V_HEIGHT/2 + V_WIDTH/20 + V_HEIGHT/6, V_HEIGHT/2 + V_WIDTH/20 + V_HEIGHT/6 + V_HEIGHT/16);
         mpTip = new ToolTip("Mana Points", (V_WIDTH-V_WIDTH/4) + V_WIDTH/80,
@@ -275,7 +275,7 @@ public class HUD {
         overLayStage.addActor(pickupTip);
     }
 
-    public void updateStats() {
+    public void updateStats() { //set stats
         atk.setText("Atk: " + avatar.stats[2]);
         def.setText("Def: " + avatar.stats[3]);
         spd.setText("Spd: " + avatar.stats[4]);

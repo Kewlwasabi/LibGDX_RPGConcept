@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import static com.kewlwasabi.rpgconcept.Constants.*;
 
-public class ToolTip extends Actor {
+public class ToolTip extends Actor { //tooltip that shows up when you hover an item
 
     String message;
     float textWidth;
@@ -45,7 +45,7 @@ public class ToolTip extends Actor {
         initLabel();
     }
 
-    public void calculateLen() {
+    public void calculateLen() { //calculates length of a string
         skin = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
 
         layout = new GlyphLayout();
@@ -62,7 +62,7 @@ public class ToolTip extends Actor {
     }
 
     @Override
-    public void act(float delta) {
+    public void act(float delta) { //flags if mouse is between posX, posX2, posY, posY2 region
         if((Gdx.input.getX() > posX) && (Gdx.input.getX() < posX2)
                 && (V_HEIGHT - Gdx.input.getY() > posY) && (V_HEIGHT - Gdx.input.getY() < posY2)) {
             hover = true;
@@ -70,15 +70,15 @@ public class ToolTip extends Actor {
             hover = false;
         }
 
-        label.setPosition(Gdx.input.getX() + 5, V_HEIGHT - Gdx.input.getY());
+        label.setPosition(Gdx.input.getX() + 5, V_HEIGHT - Gdx.input.getY()); //sets position
 
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if(hover) {
-            batch.draw(box, Gdx.input.getX(), V_HEIGHT - Gdx.input.getY());
+        if(hover) { //when mouse is hovering
+            batch.draw(box, Gdx.input.getX(), V_HEIGHT - Gdx.input.getY()); //draws tooltip
             label.act(Gdx.graphics.getDeltaTime());
             label.draw(batch, parentAlpha);
         }

@@ -39,22 +39,22 @@ public class Item {
         posY = y;
     }
 
-    public TextureRegion getTextureRegion() {
+    public TextureRegion getTextureRegion() { //initializes item file
         Texture sheet = new Texture("tilesheet.png");
         TextureRegion temp = new TextureRegion(sheet);
 
-        TextureRegion[][] tempS = temp.split(8,8);
+        TextureRegion[][] tempS = temp.split(8,8); //splits tilesheet
 
-        return tempS[sheetX][sheetY];
+        return tempS[sheetX][sheetY]; //returns the item's sprite according to coordinate sheetX, sheetY of that item
     }
 
-    public void initBody() {
+    public void initBody() { //creates bodies and fixture
         BodyDef bdef = new BodyDef();
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
 
         bdef.position.set(posX + width/2, posY + height/2);
-        bdef.type = BodyDef.BodyType.StaticBody;
+        bdef.type = BodyDef.BodyType.StaticBody; //static body since they dont move or get affected by physics
         body = world.createBody(bdef);
 
         shape.setAsBox(width/2, height/2);

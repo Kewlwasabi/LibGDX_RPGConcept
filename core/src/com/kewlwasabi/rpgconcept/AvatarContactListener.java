@@ -14,21 +14,21 @@ public class AvatarContactListener implements ContactListener {
     }
 
     @Override
-    public void beginContact(Contact contact) {
+    public void beginContact(Contact contact) { //handling for beginning of contact
 
-        Object objA = contact.getFixtureA().getUserData();
+        Object objA = contact.getFixtureA().getUserData(); //get object of 2 fixtures touching each other
         Object objB = contact.getFixtureB().getUserData();
 
-        if((objB.getClass().equals(Item.class)) && objA.equals("avatar")) {
-            play.hud.turnDisplayVisible(true);
+        if((objB.getClass().equals(Item.class)) && objA.equals("avatar")) { //if its item and avatar
+            play.hud.turnDisplayVisible(true); //turns on inventory display on the bottom right
 
-            play.avatar.inContact.add((Item)objB);
+            play.avatar.inContact.add((Item)objB); //
             play.hud.display.addItem((Item)objB);
-            play.hud.pickupTip.setVisible(true);
+            play.hud.pickupTip.setVisible(true); //pickup tip visible
 
         }
 
-        if((objA.equals("wall")) && objB.getClass().equals(Projectile.class)) {
+        if((objA.equals("wall")) && objB.getClass().equals(Projectile.class)) { //if objects are wall and projectile, it destroys projectile
             play.destroyed = (Projectile) objB;
             play.removeProjectile((Projectile)objB);
         }
@@ -36,20 +36,20 @@ public class AvatarContactListener implements ContactListener {
     }
 
     @Override
-    public void endContact(Contact contact) {
+    public void endContact(Contact contact) { //handling of ending contact
 
         Object objA = contact.getFixtureA().getUserData();
         Object objB = contact.getFixtureB().getUserData();
 
-        if(objB.getClass().equals(Item.class) && objA.equals("avatar")) {
-            play.hud.display.removeItem((Item)objB);
+        if(objB.getClass().equals(Item.class) && objA.equals("avatar")) { //if its item and avatar
+            play.hud.display.removeItem((Item)objB);  //remove item from hud display
 
             if(play.hud.display.items.size == 0) {
 
-                System.out.println(play.avatar.inContact.peek().name);
-                play.avatar.inContact.removeValue(play.avatar.inContact.peek(), false);
-                play.hud.pickupTip.setVisible(false);
-                play.hud.turnDisplayVisible(false);
+                System.out.println(play.avatar.inContact.peek().name); //for debugging purposes
+                play.avatar.inContact.removeValue(play.avatar.inContact.peek(), false); //removes first item character is in contact with
+                play.hud.pickupTip.setVisible(false); //set tip to not visible
+                play.hud.turnDisplayVisible(false);  //turn display off
             }
 
         }

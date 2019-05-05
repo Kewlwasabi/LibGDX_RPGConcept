@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import static com.kewlwasabi.rpgconcept.Constants.*;
 
-public class MyRPGConcept extends Game {
+public class MyRPGConcept extends Game { //Game main class
 
-	SpriteBatch batch;
-	SpriteBatch hudBatch;
+	SpriteBatch batch; //batch to draw sprites
+	SpriteBatch hudBatch; //batch to draw HUD
 
-	Play play;
+	Play play; //play which implements Screen
 
 	@Override
 	public void create() {
@@ -19,7 +19,7 @@ public class MyRPGConcept extends Game {
 		hudBatch = new SpriteBatch();
 		play = new Play(this);
 
-		setScreen(play);
+		setScreen(play); //set current screen to the "Play" scene
 
 	}
 
@@ -27,12 +27,12 @@ public class MyRPGConcept extends Game {
 	public void render() {
 		super.render();
 
-		FPS = Gdx.graphics.getFramesPerSecond();
+		FPS = Gdx.graphics.getFramesPerSecond(); //get FPS to be displayed in the HUD
 
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose() { //dispose junk
 		batch.dispose();
 		hudBatch.dispose();
 	}

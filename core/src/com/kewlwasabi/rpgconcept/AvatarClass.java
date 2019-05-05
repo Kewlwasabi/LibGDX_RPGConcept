@@ -1,6 +1,6 @@
 package com.kewlwasabi.rpgconcept;
 
-public enum AvatarClass {
+public enum AvatarClass { //stores stat values and classType of each class
 
     ROGUE("Rogue", 1, 150, 100, 10, 0, 15, 15, 15, 10, "Light"),
     ARCHER("Archer", 2, 130, 100, 10, 0, 12, 12, 12, 10, "Light"),

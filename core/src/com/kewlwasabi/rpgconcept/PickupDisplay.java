@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import static com.kewlwasabi.rpgconcept.Constants.V_HEIGHT;
 import static com.kewlwasabi.rpgconcept.Constants.V_WIDTH;
 
-public class PickupDisplay extends Actor {
+public class PickupDisplay extends Actor { //Displays what items to be picked up
 
     Avatar avatar;
 
@@ -26,7 +26,7 @@ public class PickupDisplay extends Actor {
         initComp();
     }
 
-    public void initComp() {
+    public void initComp() { //intialize grey background of display
         Pixmap pixmap = createRect((int)(V_WIDTH/4),(int)((V_HEIGHT/5)), 0.1f,0.1f,0.1f,0.5f);
         disBack = new Texture(pixmap);
 
@@ -49,7 +49,7 @@ public class PickupDisplay extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        batch.draw(disBack, V_WIDTH - V_WIDTH/4, V_WIDTH/80);
+        batch.draw(disBack, V_WIDTH - V_WIDTH/4, V_WIDTH/80); //draws grey background for display
         for(int i = 0; i < 2; i++) {
             for(int j = 0; j < 4; j++) {
                 batch.draw(itemBack, (V_WIDTH-V_WIDTH/4) + V_WIDTH/73 + (V_WIDTH/20)*j + (V_HEIGHT/80)*j,
@@ -59,7 +59,7 @@ public class PickupDisplay extends Actor {
 
         int i = 0;
         int j = 0;
-        for(Item a : items) {
+        for(Item a : items) { //draws item sprite over the grey background
             if(a != null) {
                 batch.draw(items.get(i*4+j).getTextureRegion(),
                         (V_WIDTH-V_WIDTH/4) + V_WIDTH/73 + (V_WIDTH/20)*j + (V_HEIGHT/80)*j,
@@ -69,7 +69,7 @@ public class PickupDisplay extends Actor {
                 j++;
                 if(j > 3) {
                     j = 0;
-                    i++;
+                    i++; //when j > 3, reset j to 0 and i++, for shifting down a row
                 }
             }
         }
