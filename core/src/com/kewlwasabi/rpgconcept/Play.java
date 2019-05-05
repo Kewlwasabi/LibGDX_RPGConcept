@@ -60,7 +60,7 @@ public class Play implements Screen {
         camera.position.set(400/PPM, 240/PPM, 0/PPM); //camera origin set in center
         world = new World(new Vector2(0,0), true); //world holding objects
 
-        avatar = new Avatar("Samurai", world, 10/PPM,10/PPM); //init "Samurai class as Avatar"
+        avatar = new Avatar("Rogue", world, 10/PPM,10/PPM); //init "Samurai class as Avatar"
         hud = new HUD(game.hudBatch, avatar); //HUD object
         gameport = new FitViewport(V_WIDTH/PPM, V_HEIGHT/PPM, camera); //world
         map = new Map(this);
